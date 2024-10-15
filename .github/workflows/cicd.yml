@@ -27,9 +27,9 @@ jobs:
       - name: Build Docker image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: squad2-ecr
+          REPOSITORY: ecr-repo
         run: |
-          docker build -t squad2-ecr .
+          docker build -t ecr-repo .
           
       - name: Scan Docker image with Trivy for any vulnerabilities
         run: |
@@ -46,7 +46,7 @@ jobs:
       - name: Tag Docker image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: squad2-ecr
+          REPOSITORY: ecr-repo
         run: |
           docker tag squad2-ecr:latest 326319537952.dkr.ecr.us-east-1.amazonaws.com/squad2-ecr:latest
           
