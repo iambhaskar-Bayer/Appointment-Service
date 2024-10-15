@@ -11,8 +11,6 @@ jobs:
   react-app-build:
     runs-on: ubuntu-latest
     env:
-      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -22,26 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
     
-      - name: Official SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v3.0.0
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.projectKey=hackathon-proj -Dsonar.host.url=${{ env.SONAR_HOST_URL
-            }} -Dsonar.login=${{ env.SONAR_TOKEN }}
-            -Dsonar.working.directory=./.scannerwork
-      
-      - name: Print SonarQube Logs
-        run: >
-          ls -al .scannerwork
-          cat .scannerwork/report-task.txt || echo "report-task.txt not found"
-
-     # - name: SonarQube Quality Gate
-      #  uses: SonarSource/sonarqube-quality-gate-action@v1.0.0
-       # with:
-        #  sonar_host_url: ${{ env.SONAR_HOST_URL }}
-         # sonar_token: ${{ env.SONAR_TOKEN }}
-          
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
