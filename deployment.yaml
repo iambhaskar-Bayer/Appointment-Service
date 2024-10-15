@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: squad-3-react-appointment
-          image: 326319537952.dkr.ecr.us-east-1.amazonaws.com/squad2-ecr
+          image: 149536480774.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo
           ports:
             - containerPort: 3000  # Adjust based on your app's listening port        
 ---
