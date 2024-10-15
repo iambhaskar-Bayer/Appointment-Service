@@ -48,22 +48,22 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: ecr-repo
         run: |
-          docker tag squad2-ecr:latest 326319537952.dkr.ecr.us-east-1.amazonaws.com/squad2-ecr:latest
+          docker tag ecr-repo:latest 149536480774.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo:latest
           
       # Push Docker image to Amazon ECR (latest only)
       - name: Push Docker image to Amazon ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: squad2-ecr
+          REPOSITORY: ecr-repo
         run: |
-          docker push 326319537952.dkr.ecr.us-east-1.amazonaws.com/squad2-ecr:latest
+          docker push 149536480774.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo:latest
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ap-south-1
           
       - name: Install kubectl
         uses: azure/setup-kubectl@v2.0
@@ -72,7 +72,7 @@ jobs:
         id: install
         
       - name: Update kube config
-        run: aws eks update-kubeconfig --region us-east-1 --name sq2-hack1
+        run: aws eks update-kubeconfig --region ap-south-1 --name sq3-hack1
       
       - name: Deploy to EKS
         run: |
